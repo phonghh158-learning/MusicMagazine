@@ -1,0 +1,17 @@
+{
+    "name": "phong/music-magazine",
+    "autoload": {
+        "psr-4": {
+            "Phong\\MusicMagazine\\": "src/",
+            "App\\": "app/",
+            "Core\\": "core/"
+        }
+    },
+    "authors": [
+        {
+            "name": "phonghh.forlearning",
+            "email": "phonghh.forlearning@gmail.com"
+        }
+    ],
+    "require": {}
+}
