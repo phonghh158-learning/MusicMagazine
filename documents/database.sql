@@ -3,11 +3,13 @@ CREATE TABLE Users (
     id CHAR(36) PRIMARY KEY UNIQUE NOT NULL,
     username NVARCHAR(255) UNIQUE NOT NULL,
     email NVARCHAR(255) UNIQUE NOT NULL,
+    email_verified_at TIMESTAMP NULL,
     password NVARCHAR(255) NOT NULL,
     role ENUM('admin', 'user', 'writer') DEFAULT 'user',
     avatar NVARCHAR(255) NULL,
     bio TEXT NULL,
     status ENUM('active', 'banned', 'deleted') DEFAULT 'active',
+    remember_token NVARCHAR(255) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP NULL

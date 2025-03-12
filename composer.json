@@ -13,5 +13,7 @@
             "email": "phonghh.forlearning@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "ramsey/uuid": "^4.7"
+    }
 }

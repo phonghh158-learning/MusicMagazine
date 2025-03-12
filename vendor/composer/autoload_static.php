@@ -6,7 +6,16 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit24628f1c9891d9dfd8b59fbe9b588482
 {
+    public static $files = array (
+        'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'R' => 
+        array (
+            'Ramsey\\Uuid\\' => 12,
+            'Ramsey\\Collection\\' => 18,
+        ),
         'P' => 
         array (
             'Phong\\MusicMagazine\\' => 20,
@@ -15,6 +24,10 @@ class ComposerStaticInit24628f1c9891d9dfd8b59fbe9b588482
         array (
             'Core\\' => 5,
         ),
+        'B' => 
+        array (
+            'Brick\\Math\\' => 11,
+        ),
         'A' => 
         array (
             'App\\' => 4,
@@ -22,6 +35,14 @@ class ComposerStaticInit24628f1c9891d9dfd8b59fbe9b588482
     );
 
     public static $prefixDirsPsr4 = array (
+        'Ramsey\\Uuid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ramsey/uuid/src',
+        ),
+        'Ramsey\\Collection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ramsey/collection/src',
+        ),
         'Phong\\MusicMagazine\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
@@ -29,6 +50,10 @@ class ComposerStaticInit24628f1c9891d9dfd8b59fbe9b588482
         'Core\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core',
+        ),
+        'Brick\\Math\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/brick/math/src',
         ),
         'App\\' => 
         array (
