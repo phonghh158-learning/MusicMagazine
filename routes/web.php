@@ -1,7 +1,9 @@
 <?php
 
+namespace routes;
+
+use App\controllers\HomeController;
 use App\controllers\authentication\AuthController;
-use App\controller;
 use Core\Router;
 
 //TEST

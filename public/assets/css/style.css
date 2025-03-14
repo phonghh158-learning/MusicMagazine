@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Vollkorn:ital,wght@0,400..900;1,400..900&display=swap');
+
+:root {
+    --primary-color: #422520; /* Màu chủ đạo */
+    --secondary-color: #6E3B3B; /* Màu phụ */
+    --accent-color: #D9A5A5; /* Màu nhấn */
+    --background-color: #F5F5F5; /* Màu nền */
+    --text-color: #333333; /* Màu chữ */
+    --light-text-color: #FFFFFF; /* Màu chữ sáng */
+    --border-color: #CCCCCC; /* Màu viền */
+
+    --text-font: "Mulish", sans-serif;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #e5e5e5;
+    font-family: var(--text-color);
+    color: #333;
+}
