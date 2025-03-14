@@ -33,6 +33,16 @@
             }
         }
 
+        public function getToken($token) {
+            $sqlQuery = $this->pdo->query(
+                "SELECT remember_token FROM {$this->table}
+                WHERE remember_token = :remember_token"
+            );
+            $sqlQuery->execute(['remember_token' => $token]);
+            $data = $sqlQuery->fetch(PDO::FETCH_ASSOC);
+            return $data['remember_token'] ?? null;
+        }
+
         public function getUserByRememberToken(string $token): ?UserEntity {
             try {
                 $sqlQuery = $this->pdo->prepare("SELECT * FROM users WHERE remember_token = :token");
@@ -55,7 +65,6 @@
                 echo "Error: " . $e->getMessage();
             }
         }
-        
         
     }
 

@@ -123,7 +123,18 @@
                 error_log("Error: " . $e->getMessage());
                 return false;
             }
-        }    
+        }
+
+        // GET ID
+        public function getId($id) {
+            $sqlQuery = $this->pdo->query(
+                "SELECT token FROM {$this->table}
+                WHERE id = :id"
+            );
+            $sqlQuery->execute(['id' => $id]);
+            $data = $sqlQuery->fetch(PDO::FETCH_ASSOC);
+            return $data['id'] ?? null;
+        }
     }
 
 ?>

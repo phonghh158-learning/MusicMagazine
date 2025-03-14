@@ -23,6 +23,11 @@ class AuthController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $id = Uuid::uuid4()->toString();
+
+                while ($this->userRepository->getId($id)) {
+                    $id = Uuid::uuid4()->toString();
+                }
+
                 $username = trim($_POST['username'] ?? '');
                 $email = trim($_POST['email'] ?? '');
                 $emailVerifiedAt = null;
@@ -32,8 +37,7 @@ class AuthController
                 $avatar = null;
                 $bio = null;
                 $status = 'active';
-                $token = null;
-                $token256 = null;
+                $rememberToken = null;
                 $createdAt = DateTimeAsia::now();
                 $updatedAt = DateTimeAsia::now();
                 $deletedAt = null;
@@ -82,8 +86,7 @@ class AuthController
                     avatar: $avatar,
                     bio: $bio,
                     status: $status,
-                    token: $token,
-                    token256: $token256,
+                    rememberToken: $rememberToken,
                     createdAt: $createdAt,
                     updatedAt: $updatedAt,
                     deletedAt: $deletedAt                
@@ -122,7 +125,12 @@ class AuthController
     
                 if ($rememberMe) {
                     $token = bin2hex(random_bytes(32));
-                    $hashedToken = password_hash($token, PASSWORD_ARGON2ID);
+                    while ($this->userRepository->getToken($token)) {
+                        $token = bin2hex(random_bytes(32));
+                    }
+                    
+                    $config = require_once __DIR__ . '../../../../config/app.php';
+                    $hashedToken = hash_hmac('sha256', $token, $config['secret_key_256']);
                     $this->userRepository->updateRememberToken($user->getId(), $hashedToken);
     
                     setcookie('remember_token', $token, time() + (7 * 24 * 60 * 60), "/", "", true, true);
@@ -141,7 +149,7 @@ class AuthController
         $userId = $_SESSION['user_id'];
         try {
             if (isset($userId)) {
-                $this->userRepository->updateRememberToken($userId, "NULL");
+                $this->userRepository->updateRememberToken($userId, "");
             }
     
             session_destroy(); // Xóa session
@@ -159,14 +167,12 @@ class AuthController
         try {
             if (!isset($_SESSION['user_id']) && isset($_COOKIE['remember_token'])) {
                 $token = $_COOKIE['remember_token'];
-                $user = $this->userRepository->getUserByRememberToken($token);
+                $config = require_once __DIR__ . '../../../../config/app.php';
+                $hashedToken = hash_hmac('sha256', $token, $config['secret_key_256']);
+                $user = $this->userRepository->getUserByRememberToken($hashedToken);
 
                 if ($user) {
-                    if (!empty($token) && password_verify($token, $user['remenber_token'])) {
-                        $_SESSION['user_id'] = $user->getId();
-                    } else {
-                        throw new Exception("Token trống hoặc không hợp lệ.");
-                    }
+                    $_SESSION['user_id'] = $user->getId();
                 } else {
                     throw new Exception("Không tìm thấy người dùng với token đã lưu.");
                 }

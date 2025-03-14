@@ -15,8 +15,7 @@
         private ?string $avatar;
         private ?string $bio;
         private string $status;
-        private ?string $token;
-        private ?string $token256;
+        private ?string $rememberToken;
         private DateTime $createdAt;
         private DateTime $updatedAt;
         private ?DateTime $deletedAt;
@@ -31,8 +30,7 @@
             ?string $avatar,
             ?string $bio,
             string $status,
-            ?string $token,
-            ?string $token256,
+            ?string $rememberToken,
             DateTime $createdAt,
             DateTime $updatedAt,
             ?DateTime $deletedAt
@@ -46,8 +44,7 @@
             $this->avatar = $avatar;
             $this->bio = $bio;
             $this->status = $status;
-            $this->token = $token;
-            $this->token256 = $token256;
+            $this->rememberToken = $rememberToken;
             $this->createdAt = $createdAt;
             $this->updatedAt = $updatedAt;
             $this->deletedAt = $deletedAt;
@@ -63,8 +60,7 @@
         public function getAvatar(): ?string { return $this->avatar; }
         public function getBio(): ?string { return $this->bio; }
         public function getStatus(): string { return $this->status; }
-        public function getToken(): ?string { return $this->token; }
-        public function getToken256(): ?string { return $this->token256; }
+        public function getrememberToken(): ?string { return $this->rememberToken; }
         public function getCreatedAt(): DateTime { return $this->createdAt; }
         public function getUpdatedAt(): DateTime { return $this->updatedAt; }
         public function getDeletedAt(): ?DateTime { return $this->deletedAt; }
@@ -79,8 +75,7 @@
         public function setAvatar(?string $avatar): void { $this->avatar = $avatar; }
         public function setBio(?string $bio): void { $this->bio = $bio; }
         public function setStatus(string $status): void { $this->status = $status; }
-        public function setToken(?string $token): void { $this->token = $token; }
-        public function setToken256(?string $token256): void { $this->token256 = $token256; }
+        public function setrememberToken(?string $rememberToken): void { $this->rememberToken = $rememberToken; }
         public function setCreatedAt(DateTime $createdAt): void { $this->createdAt = $createdAt; }
         public function setUpdatedAt(DateTime $updatedAt): void { $this->updatedAt = $updatedAt; }
         public function setDeletedAt(?DateTime $deletedAt): void { $this->deletedAt = $deletedAt; }
