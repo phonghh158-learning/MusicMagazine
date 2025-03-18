@@ -12,8 +12,8 @@ class MagazinePostModel {
         $this->repository = new MagazinePostRepository();
     }
 
-    public function createPost($id, $title, $content, $status, $categoryId, $createdAt, $updatedAt, $deletedAt) {
-        $entity = new MagazinePostEntity($id, $title, $content, $status, $categoryId, $createdAt, $updatedAt, $deletedAt);
+    public function createPost($id, $title, $content, $thumbnail, $status, $categoryId, $createdAt, $updatedAt, $deletedAt) {
+        $entity = new MagazinePostEntity($id, $title, $content, $thumbnail, $status, $categoryId, $createdAt, $updatedAt, $deletedAt);
         return $this->repository->create($entity);
     }
 

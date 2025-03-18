@@ -70,6 +70,7 @@ CREATE TABLE Magazine_Posts (
     id CHAR(36) PRIMARY KEY UNIQUE NOT NULL,
     title NVARCHAR(255) NOT NULL,
     content LONGTEXT NOT NULL,
+    thumbnail NVARCHAR(255) NULL,
     status ENUM('public', 'pending', 'deleted') DEFAULT 'pending',
     category_id CHAR(36),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -106,15 +107,26 @@ CREATE TABLE Magazine_Post_Reviews (
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
 );
 
+-- Playlist Categoies Table
+CREATE TABLE Playlist_Categories (
+    id CHAR(36) PRIMARY KEY UNIQUE NOT NULL,
+    name NVARCHAR(255) NOT NULL,
+    description NVARCHAR(255) NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL
+);
+
 -- Playlists Table
 CREATE TABLE Playlists (
     id CHAR(36) PRIMARY KEY UNIQUE NOT NULL,
     title NVARCHAR(255) NOT NULL,
     description TEXT NULL,
-    playlist_category NVARCHAR(255) NULL,
+    category_id CHAR(36) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted_at TIMESTAMP NULL
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (category_id) REFERENCES Playlist_Categories(id) ON DELETE CASCADE
 );
 
 -- Playlist Songs Table
