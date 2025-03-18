@@ -3,7 +3,7 @@
     namespace App\Repositories;
 
     use App\Entities\UserEntity;
-    use App\Repository\BaseRepository;
+    use App\Repositories\BaseRepository;
     use Core\helper\Mapper;
     use PDO;
     use PDOException;

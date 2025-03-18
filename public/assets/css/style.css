@@ -10,7 +10,7 @@
     --border-color: #CCCCCC; /* Màu viền */
 
     --text-font: "Mulish", sans-serif;
-
+    --title-font: "Judson", serif;
 }
 
 * {
@@ -20,9 +20,81 @@
 }
 
 body {
+    display: flex;
     width: 100vw;
     height: 100vh;
-    background-color: #e5e5e5;
-    font-family: var(--text-color);
+    background-color: #eee;
+    font-family: var(--text-font);
     color: #333;
+    justify-content: center;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 1280px;
+    min-width: 480px;
+    padding: 32px;
+    height: 100%;
+    border: 1px solid #000;
+    align-items: center;
+    overflow: auto;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: max-content;
+}
+
+header .header-information {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: max-content;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'judson', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--primary-color);
+}
+
+header .logo {
+    display: flex;
+    width: 100%;
+    height: max-content;
+    padding-top: 8px;
+    margin-top: 16px;
+    border: 3px solid var(--primary-color);
+    border-left: none;
+    border-right: none;
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Libre Bodoni", serif;
+    font-size: 5rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+/* FOOTER */
+footer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: max-content;
+}
+
+/* MAIN */
+main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: max-content;
+    margin: 32px;
 }

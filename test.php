@@ -1,35 +1,23 @@
 <?php
-function randomString($length = 8) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
+
+    function hashPassword() {
+        $password = 'Password@123';
+        $hash = password_hash($password, PASSWORD_ARGON2ID);
+        return $hash;
     }
-    return $randomString;
-}
 
-// Tạo mảng và thêm 3 chuỗi ngẫu nhiên
-$arr = [];
-for ($i = 0; $i < 3; $i++) {
-    $arr[] = randomString();
-}
+    echo hashPassword(); //$argon2id$v=19$m=65536,t=4,p=1$aEgvZDdXamJEQU9OM2M5TQ$xcoc7aJzaEmS94FUUdvC7pXktbHPgwX8Rf4vpQbAC1E
 
-// Thêm 3 chuỗi cố định vào mảng
-$arr[] = '1911060514';
-$arr[] = 'HongPhongHoang';
-$arr[] = '12LS';
+    function verifyPassword() {
+        $hash = '$argon2id$v=19$m=65536,t=4,p=1$aEgvZDdXamJEQU9OM2M5TQ$xcoc7aJzaEmS94FUUdvC7pXktbHPgwX8Rf4vpQbAC1E';
+        $password = 'Password@123';
+        if (password_verify($password, $hash)) {
+            return 'Password is valid!';
+        } else {
+            return 'Invalid password.';
+        }
+    }
 
-// Xáo trộn mảng 3 lần
-for ($i = 0; $i < 3; $i++) {
-    shuffle($arr);
-}
-
-// Nối các phần tử thành một chuỗi
-$result = implode('', $arr);
-
-echo $result;
-
-$config = require_once __DIR__ . '/config/app.php';
-echo $config['secret_key_256'];
+    echo "\n" . verifyPassword(); //Password is valid!
+    
 ?>

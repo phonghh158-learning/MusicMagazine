@@ -1,6 +1,6 @@
 <?php
 
-    namespace App\repository;
+    namespace App\repositories;
 
     use Core\Database;
     use Core\helper\Mapper;
