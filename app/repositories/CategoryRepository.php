@@ -2,15 +2,12 @@
 
     namespace App\repositories;
 
-    use App\entities\MagazinePostEntity;
+    use App\entities\CategoryEntity;
     use App\repositories\BaseRepository;
-    use Core\helper\Mapper;
-    use PDO;
-    use PDOException;
 
     class CategoryRepository extends BaseRepository {
         public function __construct() {
-            parent::__construct('categories', MagazinePostEntity::class);
+            parent::__construct('categories', CategoryEntity::class);
         }
     }
 

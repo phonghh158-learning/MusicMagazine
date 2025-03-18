@@ -23,8 +23,6 @@ class ArtistEntity
         ?string $bio,
         ?string $artistAvatar,
         ?string $artistCover,
-        DateTime $createdAt,
-        DateTime $updatedAt,
         ?DateTime $deletedAt = null
     ) {
         $this->id = $id;
@@ -33,8 +31,6 @@ class ArtistEntity
         $this->bio = $bio;
         $this->artistAvatar = $artistAvatar;
         $this->artistCover = $artistCover;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
         $this->deletedAt = $deletedAt;
     }
 

@@ -19,16 +19,12 @@ class SongEntity
         string $title,
         ?string $albumId,
         ?int $duration,
-        DateTime $createdAt,
-        DateTime $updatedAt,
         ?DateTime $deletedAt = null
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->albumId = $albumId;
         $this->duration = $duration;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
         $this->deletedAt = $deletedAt;
     }
 

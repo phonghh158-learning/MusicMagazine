@@ -3,7 +3,7 @@
 namespace App\controllers;
 
 use App\models\MagazinePostModel;
-use Core\Request;
+use Ramsey\Uuid\Uuid;
 use Exception;
 
 class MagazinePostController {
@@ -27,15 +27,15 @@ class MagazinePostController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $data = $_POST;
+                
                 $result = $this->model->createPost(
-                    $data['id'],
+                    Uuid::uuid4()->toString(),
                     $data['title'],
                     $data['content'],
-                    $data['status'],
+                    $data['thumbail'],
+                    'pending',
                     $data['category_id'],
-                    $data['created_at'],
-                    $data['updated_at'],
-                    $data['deleted_at']
+                    'null'
                 );
 
                 return $result;

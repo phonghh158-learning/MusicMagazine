@@ -22,8 +22,6 @@ class AlbumEntity
         ?DateTime $releaseDate,
         string $albumType,
         ?string $albumCover,
-        DateTime $createdAt,
-        DateTime $updatedAt,
         ?DateTime $deletedAt = null
     ) {
         $this->id = $id;
@@ -32,8 +30,6 @@ class AlbumEntity
         $this->releaseDate = $releaseDate;
         $this->albumType = $albumType;
         $this->albumCover = $albumCover;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
         $this->deletedAt = $deletedAt;
     }
 

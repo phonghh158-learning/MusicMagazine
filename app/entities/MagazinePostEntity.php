@@ -23,8 +23,6 @@ class MagazinePostEntity
         string $thumbnail,
         string $status = 'pending',
         ?string $categoryId = null,
-        DateTime $createdAt,
-        DateTime $updatedAt,
         ?DateTime $deletedAt = null
     ) {
         $this->id = $id;
@@ -33,8 +31,6 @@ class MagazinePostEntity
         $this->thumbnail = $thumbnail;
         $this->status = $status;
         $this->categoryId = $categoryId;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
         $this->deletedAt = $deletedAt;
     }
 
