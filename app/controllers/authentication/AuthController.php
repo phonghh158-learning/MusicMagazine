@@ -136,7 +136,7 @@ class AuthController
 
     
                 if ($rememberMe) {
-                    $config = require_once __DIR__ . '../../../../config/app.php';
+                    $config = require_once __DIR__ . '/../../../config/app.php';
 
                     $token = bin2hex(random_bytes(32));
                     $hashedToken = hash_hmac('sha256', $token, $config['secret_key_256']);

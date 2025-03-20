@@ -9,12 +9,4 @@ use core\Database;
 
 Router::dispatch();
 
-$db = Database::getInstance()->getConnection();
-
-if ($db) {
-    echo "\nKết nối thành công!";
-} else {
-    echo "\nKết nối thất bại!";
-}
-
 ?>

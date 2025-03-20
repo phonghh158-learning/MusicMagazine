@@ -5,7 +5,7 @@
     use App\models\ArtistModel;
     use Core\helper\Mapper;
     use Exception;
-use Ramsey\Uuid\Nonstandard\Uuid;
+    use Ramsey\Uuid\Nonstandard\Uuid;
 
     class ArtistController {
         private $artistModel;
@@ -14,10 +14,17 @@ use Ramsey\Uuid\Nonstandard\Uuid;
             $this->artistModel = new ArtistModel();
         }
 
+        public function index() {
+            require_once __DIR__ . '/../../views/pages/artist/index.php';
+        }
+
         public function getAllArtists() {
             return $this->artistModel->getAllArtists();
         }
 
+        public function show() {
+            require_once __DIR__ . '/../../views/pages/artist/show.php';
+        }
         public function getArtistById($id) {
             return $this->artistModel->getArtistById($id);
         }
@@ -54,7 +61,7 @@ use Ramsey\Uuid\Nonstandard\Uuid;
             return $this->artistModel->deleteArtist($id);
         }
 
-        public function softDeleteA($id) {
+        public function softDelete($id) {
             return $this->artistModel->softDeleteArtist($id);
         }
     }
