@@ -4,6 +4,7 @@
 
     use App\repositories\CategoryRepository;
     use App\entities\CategoryEntity;
+use Core\helper\Mapper;
 
     class CategoryModel {
         private $repository;
@@ -21,17 +22,22 @@
             return $this->repository->getItemById($id);
         }
 
-        public function createCategory($id, $name, $description, $createdAt, $updatedAt, $deletedAt) {
-            $entity = new CategoryEntity($id, $name, $description, $createdAt, $updatedAt, $deletedAt);
+        public function createCategory($data) {
+            $entity = Mapper::DataToEntity(CategoryEntity::class, $data);
             return $this->repository->create($entity);
         }
 
         public function updateCategory($data) {
-            return $this->repository->update($data);
+            $entity = Mapper::DataToEntity(CategoryEntity::class, $data);
+            return $this->repository->update($entity);
         }
 
         public function deleteCategory($id) {
             return $this->repository->delete($id);
+        }
+
+        public function softDeleteCategory($id) {
+            return $this->repository->softDelete($id);
         }
     }
 

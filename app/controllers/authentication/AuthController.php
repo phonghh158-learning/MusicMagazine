@@ -2,6 +2,13 @@
 
 namespace App\controllers\authentication;
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../../config/app.php';
+require_once __DIR__ . '/../../entities/UserEntity.php';
+require_once __DIR__ . '/../../repositories/UserRepository.php';
+require_once __DIR__ . '/../../../core/helper/DateTimeAsia.php';
+require_once __DIR__ . '/../../../core/helper/Mapper.php';
+
 use App\entities\UserEntity;
 use App\repositories\UserRepository;
 use Core\helper\DateTimeAsia;
@@ -18,29 +25,32 @@ class AuthController
         $this->userRepository = new UserRepository();
     }
 
+    public function showRegisterForm() {
+        require_once __DIR__ . '/../../../views/auth/register.php';
+    }
+
+    public function showLoginForm() {
+        require_once __DIR__ . '/../../../views/auth/login.php';
+    }
+
     public function register()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $id = Uuid::uuid4()->toString();
-
-                while ($this->userRepository->getId($id)) {
-                    $id = Uuid::uuid4()->toString();
-                }
-
                 $username = trim($_POST['username'] ?? '');
                 $email = trim($_POST['email'] ?? '');
-                $emailVerifiedAt = null;
+                $emailVerifiedAt = NULL;
                 $password = $_POST['password'] ?? '';
-                $confirmPassword = $_POST['confirm_password'] ?? '';
+                $confirmPassword = $_POST['confirm-password'] ?? '';
                 $role = 'user';
-                $avatar = null;
-                $bio = null;
+                $avatar = NULL;
+                $bio = NULL;
                 $status = 'active';
-                $rememberToken = null;
+                $rememberToken = NULL;
                 $createdAt = DateTimeAsia::now();
                 $updatedAt = DateTimeAsia::now();
-                $deletedAt = null;
+                $deletedAt = NULL;
 
                 $errorText = [];
     
@@ -91,13 +101,13 @@ class AuthController
                     updatedAt: $updatedAt,
                     deletedAt: $deletedAt                
                 );
-    
-                $this->userRepository->create($user);
-    
+
                 echo "Đăng ký thành công!";
+    
+                return $this->userRepository->create($user);
             } catch (Exception $e) {
                 error_log("Error: " . $e->getMessage());
-                echo $e->getMessage();
+                return $e->getMessage();
             }
             
         }
@@ -122,15 +132,20 @@ class AuthController
     
                 // Lưu session
                 $_SESSION['user_id'] = $user->getId();
+                $_SESSION['user_role'] = $user->getRole();
+
     
                 if ($rememberMe) {
+                    $config = require_once __DIR__ . '../../../../config/app.php';
+
                     $token = bin2hex(random_bytes(32));
-                    while ($this->userRepository->getToken($token)) {
+                    $hashedToken = hash_hmac('sha256', $token, $config['secret_key_256']);
+
+                    while ($this->userRepository->getToken($hashedToken)) {
                         $token = bin2hex(random_bytes(32));
+                        $hashedToken = hash_hmac('sha256', $token, $config['secret_key_256']);
                     }
                     
-                    $config = require_once __DIR__ . '../../../../config/app.php';
-                    $hashedToken = hash_hmac('sha256', $token, $config['secret_key_256']);
                     $this->userRepository->updateRememberToken($user->getId(), $hashedToken);
     
                     setcookie('remember_token', $token, time() + (7 * 24 * 60 * 60), "/", "", true, true);

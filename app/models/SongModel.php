@@ -30,9 +30,10 @@ class SongModel
         return $this->repository->create($entity);
     }
 
-    public function updateSong($song)
+    public function updateSong($id, $title, $albumId, $duration, $deleteAt)
     {
-        return $this->repository->update($song);
+        $entity = new SongEntity($id, $title, $albumId, $duration, $deleteAt);
+        return $this->repository->update($entity);
     }
 
     public function deleteSong($id)

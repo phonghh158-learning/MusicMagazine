@@ -2,65 +2,64 @@
 
     namespace App\controllers;
 
-    use App\models\CategoryModel;
+    use App\models\PlaylistModel;
     use Ramsey\Uuid\Uuid;
     use Exception;
 
-    class CategoryController
-    {
+    class PlaylistController {
         private $model;
 
-        public function __construct()
-        {
-            $this->model = new CategoryModel();
+        public function __construct() {
+            $this->model = new PlaylistModel();
         }
 
-        public function getAllCategorys()
+        public function getAllPlaylists()
         {
-            return $this->model->getAllCategories();
+            return $this->model->getAllPlaylists();
         }
 
-        public function getCategoryById($id)
+        public function getPlaylistById($id)
         {
-            return $this->model->getCategoryById($id);
+            return $this->model->getPlaylistById($id);
         }
 
-        public function create()
-        {
+        public function create() {
             try {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $data = $_POST;
 
                     $data['id'] = Uuid::uuid4()->toString();
 
-                    return $this->model->createCategory($data);
+                    return $this->model->createPlaylist($data);
                 }
             } catch (Exception $e) {
                 error_log("Error: " . $e->getMessage());
+                return false;
             }
         }
 
-        public function update()
+        public function update($entity)
         {
             try {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $data = $_POST;
 
-                    return $this->model->updateCategory($data);
+                    return $this->model->updatePlaylist($data);
                 }
             } catch (Exception $e) {
                 error_log("Error: " . $e->getMessage());
+                return false;
             }
         }
 
         public function destroy($id)
         {
-            return $this->model->deleteCategory($id);
+            return $this->model->deletePlaylist($id);
         }
 
         public function softDelete($id)
         {
-            return $this->model->softDeleteCategory($id);
+            return $this->model->softDeletePlaylist($id);
         }
     }
 

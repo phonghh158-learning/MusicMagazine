@@ -16,14 +16,10 @@ class CategoryEntity
         string $id,
         string $name,
         ?string $description,
-        DateTime $createdAt,
-        DateTime $updatedAt
     ) {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
     }
 
     // Getters

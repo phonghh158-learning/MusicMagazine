@@ -59,12 +59,14 @@
                 $columns = array_keys($data);
                 $values = array_values($data);
 
-                $valuesString = implode(", ", array_fill(0, sizeof($values), "?"));
+                $valuesString = implode(", ", array_fill(0, sizeof($values), "?")); // Tạo mảng với giá trị là values, sau đó thì nối mảng này thành chuỗi để insert
                 $sqlQuery = $this->pdo->prepare(
                     "INSERT INTO {$this->table}
                     (" . implode(", ", $columns) . ") 
                     VALUES ($valuesString)");
-                
+                echo $valuesString;
+                echo "(
+                " . implode(", ", $columns) . ")";
                 return $sqlQuery->execute($values);
             } catch (PDOException $e) {
                 error_log("Error: " . $e->getMessage());
@@ -72,13 +74,15 @@
             }
         }
 
-        public function update($data) {
-            if (!isset($data['id'])) {
-                error_log("Error: Missing ID in update data");
-                return false;
-            }
-            
-            try {
+        public function update($entity) {            
+            try {  
+                $data = Mapper::EntityToData($entity);
+
+                if (!isset($data['id'])) {
+                    error_log("Error: Missing ID in update data");
+                    return false;
+                }
+
                 $keys = array_keys($data);
                 $setString = implode(', ', array_map(fn($key) => "{$key} = :{$key}", $keys));
                 $sqlQuery = $this->pdo->prepare(
@@ -95,10 +99,21 @@
 
         // DELETE
         public function delete($id) {
-            $sqlQuery = $this->pdo->prepare(
-                "DELETE FROM {$this->table}
-                WHERE id = :id");
-            return $sqlQuery->execute(['id' => $id]);
+            try {
+                $entity = $this->getItemById($id);
+
+                if ($entity === null) {
+                    return false;
+                } 
+    
+                $sqlQuery = $this->pdo->prepare(
+                    "DELETE FROM {$this->table}
+                    WHERE id = :id");
+                return $sqlQuery->execute(['id' => $id]);
+            } catch (PDOException $e) {
+                error_log("Error: " . $e->getMessage());
+                return false;
+            }
         }
 
         // SOFT DELETE
@@ -123,17 +138,6 @@
                 error_log("Error: " . $e->getMessage());
                 return false;
             }
-        }
-
-        // GET ID
-        public function getId($id) {
-            $sqlQuery = $this->pdo->query(
-                "SELECT token FROM {$this->table}
-                WHERE id = :id"
-            );
-            $sqlQuery->execute(['id' => $id]);
-            $data = $sqlQuery->fetch(PDO::FETCH_ASSOC);
-            return $data['id'] ?? null;
         }
     }
 

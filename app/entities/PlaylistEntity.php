@@ -19,16 +19,12 @@ class PlaylistEntity
         string $title,
         ?string $description = null,
         ?string $playlistCategory = null,
-        DateTime $createdAt,
-        DateTime $updatedAt,
         ?DateTime $deletedAt = null
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
         $this->playlistCategory = $playlistCategory;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
         $this->deletedAt = $deletedAt;
     }
 

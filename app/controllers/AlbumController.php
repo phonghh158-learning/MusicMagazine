@@ -14,8 +14,8 @@
             $this->model = new AlbumModel();
         }
 
-        public function getAlbums() {
-            return $this->model->getAlbums();
+        public function getAllAlbums() {
+            return $this->model->getAllAlbums();
         }
 
         public function getAlbumById($id) {
@@ -26,25 +26,26 @@
             try {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $data = $_POST;
-                    $album = $this->model->createAlbum(
-                        Uuid::uuid4()->toString(),
-                        $data['title'],
-                        $data['artist_id'],
-                        $data['release_date'],
-                        $data['album_type'],
-                        $data['album_cover'],
-                        'null'
-                    );
 
-                    return $album;
+                    $data['id'] = Uuid::uuid4()->toString();
+
+                    return $this->model->createAlbum($data);
                 }
             } catch (Exception $e) {
                 error_log("Error: " . $e->getMessage());
             }
         }
 
-        public function update($data) {
-            return $this->model->updateAlbum($data);
+        public function update() {
+            try {
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $data = $_POST;
+
+                    return $this->model->updateAlbum($data);
+                }
+            } catch (Exception $e) {
+                error_log("Error: " . $e->getMessage());
+            }
         }
 
         public function destroy($id) {

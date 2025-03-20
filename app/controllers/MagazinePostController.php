@@ -24,37 +24,28 @@ class MagazinePostController {
     }
 
     public function create() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            try {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $data = $_POST;
-                
-                $result = $this->model->createPost(
-                    Uuid::uuid4()->toString(),
-                    $data['title'],
-                    $data['content'],
-                    $data['thumbail'],
-                    'pending',
-                    $data['category_id'],
-                    'null'
-                );
 
-                return $result;
-            } catch (Exception $e) {
-                error_log("Error: " . $e->getMessage());
+                $data['id'] = Uuid::uuid4()->toString();
+                    
+                return $this->model->createPost($data);
             }
-            
+        } catch (Exception $e) {
+            error_log("Error: " . $e->getMessage());
         }
     }
 
     public function update() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            try {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $data = $_POST;
-                $result = $this->model->updatePost($data);
-                return $result;
-            } catch (Exception $e) {
-                error_log("Error: " . $e->getMessage());
+                    
+                return $this->model->updatePost($data);
             }
+        } catch (Exception $e) {
+            error_log("Error: " . $e->getMessage());
         }
     }
 

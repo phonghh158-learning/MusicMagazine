@@ -4,17 +4,13 @@ namespace App\models;
 
 use App\repositories\MagazinePostRepository;
 use App\entities\MagazinePostEntity;
+use Core\helper\Mapper;
 
 class MagazinePostModel {
     private $repository;
 
     public function __construct() {
         $this->repository = new MagazinePostRepository();
-    }
-
-    public function createPost($id, $title, $content, $thumbnail, $status, $categoryId, $deletedAt) {
-        $entity = new MagazinePostEntity($id, $title, $content, $thumbnail, $status, $categoryId, $deletedAt);
-        return $this->repository->create($entity);
     }
 
     public function getAllPosts() {
@@ -25,8 +21,14 @@ class MagazinePostModel {
         return $this->repository->getItemById($id);
     }
 
+    public function createPost($data) {
+        $entity = Mapper::DataToEntity(MagazinePostEntity::class, $data);
+        return $this->repository->create($entity);
+    }
+
     public function updatePost($data) {
-        return $this->repository->update($data);
+        $entity = Mapper::DataToEntity(MagazinePostEntity::class, $data);
+        return $this->repository->update($entity);
     }
 
     public function deletePost($id) {

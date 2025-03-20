@@ -4,7 +4,7 @@
 
     use App\entities\AlbumEntity;
     use App\repositories\AlbumRepository;
-    use App\repositories\repository;
+    use Core\helper\Mapper;
 
     class AlbumModel {
         private $repository;
@@ -14,7 +14,7 @@
             $this->repository = new AlbumRepository();
         }
 
-        public function getAlbums() {
+        public function getAllAlbums() {
             return $this->repository->getAllItem();
         }
 
@@ -22,13 +22,14 @@
             return $this->repository->getItemById($id);
         }
 
-        public function createAlbum($id, $title, $artistId, $releaseDate, $albumType, $albumCover, $deleteAt) {
-            $entity = new AlbumEntity($id, $title, $artistId, $releaseDate, $albumType, $albumCover, $deleteAt);
+        public function createAlbum($data) {
+            $entity = Mapper::DataToEntity(AlbumEntity::class, $data);
             return $this->repository->create($entity);
         }
 
         public function updateAlbum($data) {
-            return $this->repository->update($data);
+            $entity = Mapper::DataToEntity(AlbumEntity::class, $data);
+            return $this->repository->update($entity);
         }
 
         public function deleteAlbum($id) {
@@ -36,9 +37,9 @@
         }
 
         public function softDeleteAlbum($id)
-    {
-        return $this->repository->softDelete($id);
-    }
+        {
+            return $this->repository->softDelete($id);
+        }
     }
 
 ?>
